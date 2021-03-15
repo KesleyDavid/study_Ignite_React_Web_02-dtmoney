@@ -37,6 +37,17 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
   }
 
+  body, input, textarea, button {
+    // input, textarea, button => por padrao não importam fonte do body
+    // Possuem suas próprias estruturas
+    font-family: 'Poppins', sans-serif; // Se houver falha no 'Poppins', carrega 'sans-serif'
+    font-weight: 400; // Padrão para fonte Regular Poppins
+  }
+
+  h1, h2, h3, h4, h5, h6, strong {
+    font-weight: 600;
+  }
+
   button {
     cursor: pointer;
   }
