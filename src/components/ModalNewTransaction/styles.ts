@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { darken } from 'polished';
+import { darken, transparentize } from 'polished';
 
 export const Container = styled.form`
   h2 {
@@ -62,14 +62,27 @@ export const ContainerTransactionType = styled.div`
 
 interface RadioBoxProps {
   isActive: boolean;
+  // activeColor: string;
+  activeColor: 'green' | 'red'; // Apenas as duas cores
 }
+
+const colors = {
+  green: '#33CC95',
+  red: '#E52E4D',
+}
+// Utilizando arrow functions com props, o JS não encherga as cores CSS
+// Por isso foi criado a variavel
 
 export const RadioBox = styled.button<RadioBoxProps>`
   height: 4rem;
   border: 1px solid #d7d7d7;
   border-radius: 0.25rem;
 
-  background: ${({isActive}) => isActive ? '#eee' : 'transparent'};
+  background: ${({isActive,activeColor}) => isActive 
+    // ? transparentize(colors[activeColor]) // Não pode todas cores, apenas green ou red, necessário alterar interface
+    ? transparentize(0.9, colors[activeColor]) // 90 % transparente
+    : 'transparent'
+  };
 
   display: flex;
   align-items: center;
