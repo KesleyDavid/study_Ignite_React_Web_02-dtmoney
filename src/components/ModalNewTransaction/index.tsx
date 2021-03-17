@@ -1,6 +1,8 @@
 import { FormEvent, useState } from 'react';
 import Modal from 'react-modal';
 
+import { api } from '../../services/api';
+
 import imgClose from '../../assets/close.svg';
 import imgIncome from '../../assets/income.svg';
 import imgOutcome from '../../assets/outcome.svg';
@@ -25,12 +27,14 @@ export function ModalNewTransaction({ isOpen, onRequestClose }: ModalNewTransact
     // Prevenir que após o submit faz refresh na pagina
     event.preventDefault();
 
-    console.log({
+    const data = {
       title, 
       value,
       category,
       type
-    });
+    };
+
+    api.post('/transactions', data);
   }
 
   return (
