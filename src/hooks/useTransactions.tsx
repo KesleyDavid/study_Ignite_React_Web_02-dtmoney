@@ -1,5 +1,5 @@
-import { createContext, useEffect, useState, ReactNode } from 'react';
-import { api } from './services/api';
+import { createContext, useEffect, useState, ReactNode, useContext } from 'react';
+import { api } from '../services/api';
 
 
 interface Transaction {
@@ -34,7 +34,7 @@ interface TransactionsContextData {
   createTransaction: (transaction: TransactionInput) => Promise<void>; // Função, que recebe um arrau de transações e retorna VOID
 }
 
-export const TransactionsContext = createContext<TransactionsContextData>(
+const TransactionsContext = createContext<TransactionsContextData>(
   {} as TransactionsContextData // Força o react a entender que SIM, ele possui esse formato
 );
 
@@ -64,4 +64,9 @@ export function TransactionsProvider({ children }: TransactionsProviderProps) {
       {children}
     </TransactionsContext.Provider>
   )
+}
+
+export function useTransactions() {
+  const context = useContext(TransactionsContext);
+  return context;
 }
