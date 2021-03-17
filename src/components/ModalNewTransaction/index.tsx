@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Modal from 'react-modal';
 
 import imgClose from '../../assets/close.svg';
@@ -15,7 +15,23 @@ interface ModalNewTransactionProps {
 Modal.setAppElement('#root');
 
 export function ModalNewTransaction({ isOpen, onRequestClose }: ModalNewTransactionProps) {
+  const [title, setTitle] = useState('')
+  const [value, setValue] = useState(0)
+  const [category, setCategory] = useState('')
   const [type, setType] = useState('deposit');
+
+  function handleCreateNewTransaction(event: FormEvent) {
+    // event do tipo FormEvent
+    // Prevenir que após o submit faz refresh na pagina
+    event.preventDefault();
+
+    console.log({
+      title, 
+      value,
+      category,
+      type
+    });
+  }
 
   return (
     <Modal
@@ -31,16 +47,20 @@ export function ModalNewTransaction({ isOpen, onRequestClose }: ModalNewTransact
       >
         <img src={imgClose} alt="Fechar modal"/>  
       </button>
-      <S.Container>
+      <S.Container onSubmit={handleCreateNewTransaction}>
         <h2>Cadastrar Transação</h2>
 
         <input 
           placeholder="Título"
+          value={title}
+          onChange={event => setTitle(event.target.value)}
         />
 
         <input 
           placeholder="Valor"
           type="number"
+          value={value}
+          onChange={event => setValue(Number(event.target.value))}
         />
 
         <S.ContainerTransactionType>
@@ -67,6 +87,8 @@ export function ModalNewTransaction({ isOpen, onRequestClose }: ModalNewTransact
 
         <input 
           placeholder="Categoria"
+          value={category}
+          onChange={event => setCategory(event.target.value)}
         />
 
         <button type="submit">
