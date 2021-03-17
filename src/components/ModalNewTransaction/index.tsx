@@ -25,17 +25,24 @@ export function ModalNewTransaction({ isOpen, onRequestClose }: ModalNewTransact
   const [category, setCategory] = useState('')
   const [type, setType] = useState('deposit');
 
-  function handleCreateNewTransaction(event: FormEvent) {
+  async function handleCreateNewTransaction(event: FormEvent) {
     // event do tipo FormEvent
     // Prevenir que após o submit faz refresh na pagina
     event.preventDefault();
 
-    createTransaction({
+    await createTransaction({
       title, 
       amount,
       category,
       type,
     });
+
+    setTitle('');
+    setAmount(0);
+    setCategory('');
+    setType('deposit');
+    
+    onRequestClose();
   }
 
   return (
